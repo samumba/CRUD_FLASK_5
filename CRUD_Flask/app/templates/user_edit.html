@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Редактирование пользователя</h1>
+    
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            {{ form.lastname.label(class="form-label") }}
+            {{ form.lastname(class="form-control") }}
+            {% if form.lastname.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.lastname.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            {{ form.firstname.label(class="form-label") }}
+            {{ form.firstname(class="form-control") }}
+            {% if form.firstname.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.firstname.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            {{ form.middlename.label(class="form-label") }}
+            {{ form.middlename(class="form-control") }}
+            {% if form.middlename.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.middlename.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        {% if current_user.is_admin() and form.role %}
+        <div class="mb-3">
+            {{ form.role.label(class="form-label") }}
+            {{ form.role(class="form-select") }}
+            {% if form.role.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.role.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{{ url_for('main.index') }}" class="btn btn-secondary">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

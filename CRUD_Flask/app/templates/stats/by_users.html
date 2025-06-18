@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Статистика по пользователям</h1>
+    
+    <div class="mb-4">
+        <a href="{{ url_for('stats.index') }}" class="btn btn-secondary me-2">Назад к журналу</a>
+        <a href="{{ url_for('stats.export_users') }}" class="btn btn-success">Экспорт в CSV</a>
+    </div>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Пользователь</th>
+                <th>Количество посещений</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user, count in stats %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.get_full_name() if user else 'Неаутентифицированный пользователь' }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %} 

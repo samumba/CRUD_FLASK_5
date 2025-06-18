@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Отчет по страницам{% endblock %}
+
+{% block content %}
+<h1>Отчет по страницам</h1>
+
+<div class="table-responsive mb-4">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Страница</th>
+                <th>Количество посещений</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for path, count in stats_data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ path }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-between">
+    <a href="{{ url_for('stats.index') }}" class="btn btn-secondary">Назад к журналу</a>
+    <a href="{{ url_for('stats.export_pages') }}" class="btn btn-success">Экспорт в CSV</a>
+</div>
+{% endblock %}

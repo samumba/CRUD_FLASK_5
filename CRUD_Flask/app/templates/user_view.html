@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Просмотр пользователя{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Профиль пользователя</h1>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ user.get_full_name() }}</h5>
+            <p class="card-text">
+                <strong>Имя пользователя:</strong> {{ user.username }}<br>
+                <strong>Фамилия:</strong> {{ user.lastname or 'Не указана' }}<br>
+                <strong>Имя:</strong> {{ user.firstname }}<br>
+                <strong>Отчество:</strong> {{ user.middlename or 'Не указано' }}<br>
+                <strong>Роль:</strong> {{ user.role.name if user.role else 'Не назначена' }}<br>
+                <strong>Дата регистрации:</strong> {{ user.created_date.strftime('%d.%m.%Y %H:%M:%S') }}
+            </p>
+            
+            <div class="mt-4">
+                {% if current_user.is_admin() or current_user.id == user.id %}
+                    <a href="{{ url_for('main.user_edit', id=user.id) }}" class="btn btn-warning">Редактировать</a>
+                {% endif %}
+                
+                {% if current_user.is_admin() and current_user.id != user.id %}
+                    <form action="{{ url_for('main.user_delete', id=user.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?')">Удалить</button>
+                    </form>
+                {% endif %}
+                
+                <a href="{{ url_for('main.index') }}" class="btn btn-secondary">Назад</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

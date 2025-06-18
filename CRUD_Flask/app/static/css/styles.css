@@ -1,0 +1,13 @@
+.table-responsive {
+    margin-bottom: 20px;
+}
+
+.form-error {
+    color: red;
+    margin-top: 5px;
+}
+
+.purple-grime {
+    background-color: rgb(119, 98, 235);
+    font-weight: bold;
+}
